@@ -1,0 +1,84 @@
+body {
+    background-color: rgb(246, 245, 241);
+    font-family: 'SF Pro Text',-apple-system,BlinkMacSystemFont,Roboto,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+}
+
+#isin {
+    margin-top: 75px;
+    text-align: center;
+    font-size: 120px;
+}
+
+  
+  #countdown {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 82px;
+    animation: fadeIn 3.5s ease-in-out;
+  }
+
+  #vote-form {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 600px;
+    padding: 20px;
+    margin-left: 60px;
+    margin-bottom: 60px;
+    background-color: transparent;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  #question {
+    margin-top: -5px;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  input[type="radio"] {
+    margin: 10px 0;
+  }
+  
+  label {
+    font-size: 16px;
+  }
+  
+  input[type="submit"] {
+    background-color:  rgb(10, 108, 218);
+    color: #fff;
+    border: none;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: rgb(10, 108, 218);
+  }
+
+.bar-container {
+    display: inline-block;
+    text-align: center;
+    margin: 0 20px; /* Adjust as needed */
+}
+
+.bar {
+    width: 75px; /* Adjust as needed */
+    background-color: rgb(54, 126, 209); /* Adjust as needed */
+    vertical-align: bottom;
+    border-radius: 15px; /* Adjust as needed */
+}
+
+.option {
+    padding-top: 15px;
+    color: black;
+}
+
+#graph-container {
+    position: fixed;
+    right: 60px;
+    bottom: 60px;
+  }
