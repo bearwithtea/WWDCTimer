@@ -12,8 +12,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 let votes = JSON.parse(fs.readFileSync('votes.json', 'utf8'));
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+  res.sendFile(path.join(__dirname, 'index.html'));
+}); 
 
 // This is the route that the form POSTs to
 app.post('/submit-vote', (req, res) => {
@@ -37,7 +37,7 @@ app.get('/current-votes', (req, res) => {
   res.json(votes);
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '.')));
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
