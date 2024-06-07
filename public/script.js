@@ -34,6 +34,7 @@ updateCountdown();
 countdownFunction = setInterval(updateCountdown, 1000);
 
 // Fetch the vote results from the server
+// Fetch the vote results from the server
 fetch('/results')
   .then(response => {
     if (!response.ok) {
@@ -45,8 +46,8 @@ fetch('/results')
     // Now `votes` is an object with the vote counts
     // You can use this data to update the DOM
 
-    // For example, if you have an element with id "results" you could do:
-    document.getElementById('results').textContent = JSON.stringify(votes);
+    // Call the updateGraph function with the vote data
+    updateGraph(votes);
   })
   .catch(error => console.error('Error:', error));
 
@@ -108,4 +109,74 @@ fetch('/submit-vote', {
     console.error('Error:', error); // Debugging line
     document.getElementById('error-message').textContent = error.message;
   });
+
+  // Function to update the graph
+function updateGraph(votes) {
+  // Create a string to hold the HTML
+  var html = '';
+
+  var optionNames = {
+    "option1": "AI",
+    "option2": "Siri",
+    "option3": "AirPods",
+    "option4": "OS"
+  };
+
+  // Loop through each vote and add it to the HTML string
+  for (var vote in votes) {
+    var height = votes[vote] * 5; // Adjust the multiplier to scale the bars appropriately
+    html += '<div class="bar-container">';
+    html += '<div class="bar" style="height: ' + height + 'px"></div>';
+    html += '<div class="option">' + optionNames[vote] + ': ' + votes[vote] + '</div>';
+    html += '</div>';
+  }
+
+  // Insert the HTML into the page
+  document.getElementById('results').innerHTML = html;
+}
+
+// Fetch the current vote counts when the page is first loaded
+fetch('/current-votes') // Replace this with the actual URL
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Error fetching vote counts');
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+    updateGraph(data);
+  })
+  .catch((error) => {
+    console.error('Error:', error); // Debugging line
+    document.getElementById('error-message').textContent = error.message;
+  });
+
+// Submit a vote
+function submitVote(vote) {
+  fetch('/submit-vote', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      vote: vote, // Replace this with the actual vote
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Error submitting vote');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      updateGraph(data);
+    })
+    .catch((error) => {
+      console.error('Error:', error); // Debugging line
+      document.getElementById('error-message').textContent = error.message;
+    });
+}
+
 });

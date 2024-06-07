@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 let votes = JSON.parse(fs.readFileSync('votes.json', 'utf8'));
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // This is the route that the form POSTs to
@@ -29,6 +29,12 @@ app.post('/submit-vote', (req, res) => {
 // This is the route for displaying the vote counts
 app.get('/results', (req, res) => {
   res.send(votes);
+});
+
+// This is the route for fetching the current votes
+app.get('/current-votes', (req, res) => {
+  // Send the votes as a JSON response
+  res.json(votes);
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
